@@ -5,26 +5,38 @@ import pygame
 # import everything from a module
 # into the current file
 from constants import *
+from player import *
 
 def main():
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
     clock = pygame.time.Clock()
     dt = 0
 
+    x = SCREEN_WIDTH / 2
+    y = SCREEN_HEIGHT / 2
+
+    print('center', x, y)
+
+    player = Player(x, y)
+
     while True:
         print("Starting asteroids!")
-        print(f"Screen width: {SCREEN_WIDTH}")
-        print(f"Screen height: {SCREEN_HEIGHT}")
 
-        screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+
         pygame.Surface.fill(screen, (0, 0, 0))
+        player.draw(screen)
+
+
+        # update display Surface
         pygame.display.flip()
 
         delta_ms = clock.tick(60)
         dt = delta_ms/1000
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return
 
 if __name__ == "__main__":
     main()
