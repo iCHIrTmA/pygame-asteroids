@@ -8,6 +8,7 @@ from constants import *
 from player import *
 from asteroid import *
 from asteroidfield import *
+import sys
 
 def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -26,7 +27,7 @@ def main():
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
 
-    Player(x, y)
+    player = Player(x, y)
     AsteroidField()
 
     while True:
@@ -43,6 +44,13 @@ def main():
         
         for element in updatable:
             element.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.isCollissionWith(player):
+                print("Game over!")
+                sys.exit()
+
+        
 
         # update display Surface
         pygame.display.flip()
