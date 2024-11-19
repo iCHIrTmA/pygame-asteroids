@@ -16,7 +16,10 @@ def main():
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
 
-    print('center', x, y)
+    updatable= pygame.sprite.Group()
+    drawable= pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
 
     player = Player(x, y)
 
@@ -28,9 +31,12 @@ def main():
                 return
 
         pygame.Surface.fill(screen, (0, 0, 0))
-        player.draw(screen)
-        player.update(dt)
 
+        for element in drawable:
+            element.draw(screen)
+        
+        for element in updatable:
+            element.update(dt)
 
         # update display Surface
         pygame.display.flip()
